@@ -21,7 +21,7 @@ class APIManager: NSObject {
     let Search_Recommendation = "http://mobilecdnbj.kugou.com/new/app/i/search.php"
     let Search_Results = ""
     
-    //获取searchBar placeHolder text
+    //获取searchBarPlaceHolder text
     func getSearchPush(completion:@escaping(String) -> Void){
         
         var searchPushs = [String]()

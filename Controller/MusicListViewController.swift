@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PYSearch
 
 class MusicListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,UISearchResultsUpdating{
    
@@ -25,6 +26,8 @@ class MusicListViewController: UIViewController,UITableViewDelegate,UITableViewD
     var musics = [Music]()
     var filteredMusics = [Music]()
     let identifier = "cellID"
+    var hotSearchTags = [String]()
+    var searchBarPlaceholder:String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,13 +37,13 @@ class MusicListViewController: UIViewController,UITableViewDelegate,UITableViewD
         
         setupTableView()
         
-        
-        APIManager.shared.getSearchRecommendation(keyword: "张学友") { (recommendationrs) in
-          _ = recommendationrs.map({print($0)})
+        APIManager.shared.getSearchPush { (searchBarPlaceholder) in
+            self.searchBarPlaceholder = " " + searchBarPlaceholder
         }
         
+        
         APIManager.shared.getSearchHotTags { (searchHotTags) in
-            _ = searchHotTags.map({print($0)})
+            self.hotSearchTags = searchHotTags
         }
      
     }
@@ -55,9 +58,35 @@ class MusicListViewController: UIViewController,UITableViewDelegate,UITableViewD
     
     @IBAction func searchClick(_ sender: UIBarButtonItem) {
         
-        navigationItem.titleView = searchController.searchBar
-        navigationItem.rightBarButtonItem = nil
+        let searchVC = PYSearchViewController(hotSearches: hotSearchTags, searchBarPlaceholder: searchBarPlaceholder) { (searchVC, searchBar, searchText) in
+            
+            if let keyword = searchText{
+                APIManager.shared.getSearchRecommendation(keyword: keyword) { (recommendationrs) in
+                    _ = recommendationrs.map({print($0)})
+                }
+                
+            }else{
+                APIManager.shared.getSearchRecommendation(keyword: self.searchBarPlaceholder) { (recommendationrs) in
+                    _ = recommendationrs.map({print($0)})
+                }
+            }
         
+        }
+        searchVC?.hotSearchStyle = .arcBorderTag
+        searchVC?.searchHistoriesCount = 10
+        searchVC?.emptySearchHistoryLabel.textColor = UIColor.candyGreen
+        if let textField = searchVC?.searchBar.value(forKey: "searchField") as? UITextField {
+            textField.font = UIFont.systemFont(ofSize: 12)
+            textField.textColor = UIColor.lightGray
+            let placeholderLabel = textField.value(forKey: "placeholderLabel") as? UILabel
+            placeholderLabel?.font = UIFont.systemFont(ofSize: 12)
+            
+        }
+      
+        let nav = UINavigationController.init(rootViewController: searchVC!)
+        present(nav, animated: true, completion: nil)
+        
+
     }
     
     
