@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-/// 自定义searchController
+/// 自定义SearchController
 class CustomSearchController:UISearchController{
     
     override init(searchResultsController: UIViewController?) {
@@ -17,18 +17,14 @@ class CustomSearchController:UISearchController{
         super.init(searchResultsController: searchResultsController)
         self.definesPresentationContext = true
         self.dimsBackgroundDuringPresentation = false
-        self.hidesNavigationBarDuringPresentation = false
-        let searchBar = self.searchBar
-        searchBar.searchBarStyle = .minimal
-        searchBar.tintColor = .white
-        searchBar.placeholder = "搜索歌单内歌曲"
-        if let textField = searchBar.value(forKey: "searchField") as? UITextField {
-            textField.textColor = .white
-            let placeholderLabel = textField.value(forKey: "placeholderLabel") as? UILabel
-            //  placeholderLabel?.textColor = .white
-            placeholderLabel?.font = UIFont.systemFont(ofSize: 15)
-            
-        }
+        self.hidesNavigationBarDuringPresentation = true
+        self.searchBar.searchBarStyle = .minimal
+       
+        self.searchBar.placeholder = "搜索歌单内歌曲"
+        self.searchBar.textField?.textColor = UIColor.white
+        self.searchBar.placehloderLabel?.textColor = .white
+        self.searchBar.placehloderLabel?.font = UIFont.systemFont(ofSize: 15)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

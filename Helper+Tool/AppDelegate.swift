@@ -19,14 +19,66 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.statusBarStyle = .lightContent
 
         UINavigationBar.appearance().tintColor = .white
-        UINavigationBar.appearance().barTintColor = UIColor.candyGreen
-        UINavigationBar.appearance().shadowImage = UIImage()
+ 
+     UINavigationBar.appearance().setBackgroundImage(UIImage(),for: .default)
         
-        sleep(1)
-
+        UINavigationBar.appearance().shadowImage = UIImage()
+        if #available(iOS 11.0, *) {
+            UINavigationBar.appearance().prefersLargeTitles = true
+            let font = UIFont.init(name: "Pacifico-Regular", size: 35)!
+            UINavigationBar.appearance().largeTitleTextAttributes = [NSForegroundColorAttributeName: UIColor.white,NSFontAttributeName:font]
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        setupSearchBar()
+        
         return true
     }
 
+    func imageWithColor(_ color:UIColor,size:CGSize) -> UIImage{
+        
+        let rect = CGRect(x: 0, y: 0, width: size.width, height: 1)
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0)
+        if let context  = UIGraphicsGetCurrentContext(){
+            context.setFillColor(color.cgColor)
+            context.fill(rect)
+        }
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image!
+        
+    }
+    
+    func setupSearchBar(){
+        
+        if #available(iOS 11.0, *) {
+            //设置文字
+            UISearchBar.appearance().tintColor = UIColor.white
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        if #available(iOS 11.0, *) {
+            
+            // Search bar placeholder text color
+            UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).attributedPlaceholder = NSAttributedString(string: "搜索歌单内的歌曲", attributes: [NSForegroundColorAttributeName: UIColor.white])
+            
+            // Search bar text color
+            UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+            
+            // Insertion cursor color
+            UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = UIColor.white
+            
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        // Search bar clear icon
+       //  UISearchBar.appearance().setImage(UIImage(named: "clear"), for: .clear, state: .normal)
+        
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

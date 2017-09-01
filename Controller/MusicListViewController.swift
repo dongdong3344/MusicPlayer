@@ -9,6 +9,7 @@
 import UIKit
 import PYSearch
 
+@available(iOS 11.0, *)
 class MusicListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,UISearchResultsUpdating{
    
     @IBOutlet weak var searchFooter: SearchFooter!
@@ -37,23 +38,29 @@ class MusicListViewController: UIViewController,UITableViewDelegate,UITableViewD
         
         setupTableView()
         
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = true
+        
         APIManager.shared.getSearchPush { (searchBarPlaceholder) in
             self.searchBarPlaceholder = " " + searchBarPlaceholder
         }
         
-        
         APIManager.shared.getSearchHotTags { (searchHotTags) in
             self.hotSearchTags = searchHotTags
         }
+    
      
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+       
         selectRow()
-        
+
         animateTableView()
+        
+        
+       
     }
     
     @IBAction func searchClick(_ sender: UIBarButtonItem) {
@@ -72,21 +79,27 @@ class MusicListViewController: UIViewController,UITableViewDelegate,UITableViewD
             }
         
         }
-        searchVC?.hotSearchStyle = .arcBorderTag
-        searchVC?.searchHistoriesCount = 10
-        searchVC?.emptySearchHistoryLabel.textColor = UIColor.candyGreen
-        if let textField = searchVC?.searchBar.value(forKey: "searchField") as? UITextField {
-            textField.font = UIFont.systemFont(ofSize: 12)
-            textField.textColor = UIColor.lightGray
-            let placeholderLabel = textField.value(forKey: "placeholderLabel") as? UILabel
-            placeholderLabel?.font = UIFont.systemFont(ofSize: 12)
-            
-        }
+        
+        setupSearch(with: searchVC!)
       
         let nav = UINavigationController.init(rootViewController: searchVC!)
+        nav.navigationBar.prefersLargeTitles = false
         present(nav, animated: true, completion: nil)
         
 
+    }
+    
+    
+    func setupSearch(with searchVC:PYSearchViewController){
+        
+        //searchVC.searchBar.scopeButtonTitles = ["French", "English"]
+        searchVC.hotSearchStyle = .arcBorderTag
+        searchVC.searchHistoriesCount = 10
+        searchVC.emptySearchHistoryLabel.textColor = UIColor.candyGreen
+        searchVC.searchBar.textField?.font = UIFont.systemFont(ofSize: 12)
+        searchVC.searchBar.textField?.textColor = UIColor.lightGray
+        searchVC.searchBar.placehloderLabel?.font = UIFont.systemFont(ofSize: 12)
+        
     }
     
     
@@ -98,8 +111,10 @@ class MusicListViewController: UIViewController,UITableViewDelegate,UITableViewD
         
         tableView.register(UINib.init(nibName: "MusicCell", bundle: nil), forCellReuseIdentifier: identifier)
         
-        tableView.backgroundView = UIImageView(image: #imageLiteral(resourceName: "BackgroundImage"))
+        tableView.backgroundColor = UIColor.clear
+        
         tableView.separatorStyle = .none
+        
         
     }
     

@@ -94,7 +94,7 @@
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" name="FingerPaint-Regular" family="Finger Paint" pointSize="20"/>
+                            <fontDescription key="fontDescription" name="Pacifico-Regular" family="Pacifico" pointSize="20"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
                     </navigationBar>
@@ -119,8 +119,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="140" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iHK-YP-DEp">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BackgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="Fbp-bg-oxl">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="140" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iHK-YP-DEp">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="ybM-Wq-g4D" id="Fxl-PS-H8a"/>
@@ -138,12 +141,16 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="osu-qy-UoZ" firstAttribute="leading" secondItem="dUF-6G-bOU" secondAttribute="leading" id="AxB-5U-pz8"/>
+                            <constraint firstItem="Fbp-bg-oxl" firstAttribute="leading" secondItem="dUF-6G-bOU" secondAttribute="leading" id="LJD-dw-zas"/>
+                            <constraint firstItem="Fbp-bg-oxl" firstAttribute="top" secondItem="dUF-6G-bOU" secondAttribute="top" id="NX6-3l-N5h"/>
                             <constraint firstAttribute="trailing" secondItem="osu-qy-UoZ" secondAttribute="trailing" id="OZH-Sb-34v"/>
+                            <constraint firstAttribute="trailing" secondItem="Fbp-bg-oxl" secondAttribute="trailing" id="R9S-ug-LPF"/>
                             <constraint firstItem="iHK-YP-DEp" firstAttribute="leading" secondItem="dUF-6G-bOU" secondAttribute="leading" id="adU-xd-e92"/>
                             <constraint firstItem="e2S-zl-gi5" firstAttribute="top" secondItem="iHK-YP-DEp" secondAttribute="bottom" id="ead-Mw-NE1"/>
                             <constraint firstItem="e2S-zl-gi5" firstAttribute="top" secondItem="osu-qy-UoZ" secondAttribute="bottom" id="hbC-q8-DjB"/>
+                            <constraint firstItem="e2S-zl-gi5" firstAttribute="top" secondItem="Fbp-bg-oxl" secondAttribute="bottom" id="kGE-0d-F1K"/>
                             <constraint firstAttribute="trailing" secondItem="iHK-YP-DEp" secondAttribute="trailing" id="tdb-qc-sz0"/>
-                            <constraint firstItem="iHK-YP-DEp" firstAttribute="top" secondItem="dUF-6G-bOU" secondAttribute="top" id="yML-hE-xBz"/>
+                            <constraint firstItem="iHK-YP-DEp" firstAttribute="top" secondItem="dUF-6G-bOU" secondAttribute="top" constant="64" id="yML-hE-xBz"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Tracks" id="T9X-gC-5vh">
@@ -165,4 +172,7 @@
             <point key="canvasLocation" x="356" y="135.38230884557723"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="BackgroundImage" width="187" height="333"/>
+    </resources>
 </document>

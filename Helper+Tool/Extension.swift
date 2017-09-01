@@ -9,6 +9,24 @@
 
 import UIKit
 
+extension UISearchBar{
+    var textField: UITextField?{
+        if let textField = self.value(forKey: "searchField") as? UITextField {
+            
+           return textField
+        }
+        return nil
+    }
+    
+    var placehloderLabel:UILabel?{
+       
+        if let placeholderLabel = textField?.value(forKey: "placeholderLabel") as? UILabel{
+            return placeholderLabel
+    }
+        return nil
+    }
+}
+
 extension UIView {
     @discardableResult  //silence the warnings,if the result will not used
     
