@@ -33,13 +33,13 @@ class MusicListViewController: UIViewController,UITableViewDelegate,UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       
+
         getMusics()
         
         setupTableView()
         
         navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = true
+       // navigationItem.hidesSearchBarWhenScrolling = true
         
         APIManager.shared.getSearchPush { (searchBarPlaceholder) in
             self.searchBarPlaceholder = " " + searchBarPlaceholder

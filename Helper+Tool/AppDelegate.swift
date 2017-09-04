@@ -18,11 +18,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIApplication.shared.statusBarStyle = .lightContent
 
-        UINavigationBar.appearance().tintColor = .white
+      //  UINavigationBar.appearance().tintColor = .white
  
-     UINavigationBar.appearance().setBackgroundImage(UIImage(),for: .default)
+        UINavigationBar.appearance().setBackgroundImage(UIImage(),for: .default)
         
         UINavigationBar.appearance().shadowImage = UIImage()
+        
         if #available(iOS 11.0, *) {
             UINavigationBar.appearance().prefersLargeTitles = true
             let font = UIFont.init(name: "Pacifico-Regular", size: 35)!

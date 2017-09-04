@@ -76,9 +76,7 @@ class MusicPlayManager: NSObject,AVAudioPlayerDelegate {
     
     func preparePlayer(){
         
-        /**Because we will be instantiating a new AVAudioPlayer instance each time this method is called, we do a little housekeeping by setting player to nil.*/
-        
-      
+
         do {
             
             if let url =  URL(string:(musics?[currentIndex].muscicURL)!){
